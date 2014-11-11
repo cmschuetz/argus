@@ -1,0 +1,9 @@
+{
+  "name": "shrapnel",
+  "description": "Automated Course Registration",
+  "dependencies":{
+    "zombie": "latest",
+    "assert": "latest",
+    "cheerio": "latest"
+  }
+}
