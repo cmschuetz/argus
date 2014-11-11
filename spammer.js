@@ -2,8 +2,8 @@ var Browser = require("zombie");
 var assert = require("assert");
 var cheerio = require("cheerio")
 var config = require("./config.json")
-var courses = []
-var course = {}
+var courses = {}
+var crn = ''
 
 // Load the page from localhost
 browser = new Browser()
@@ -18,22 +18,20 @@ browser.
   then(function() {
     var $ = cheerio.load(browser.html());
     $("tr","table.datadisplaytable").each(function(){
-      var course = {}
       $(this).find(".dddefault").each(function(){
         $(this).find("input").each(function() {
           if($(this).attr("name") == "CRN_IN"){
-            course['CRN'] = $(this).attr("value");
+            crn = $(this).attr("value");
+            courses[crn] = {}
           }
           if($(this).attr("name") == "SUBJ"){
-            course['Subject'] = $(this).attr("value");
+            courses[crn].subject = $(this).attr("value");
           }
           if($(this).attr("name") == "CRSE"){
-            course['Course'] = $(this).attr("value");
+            courses[crn].course = $(this).attr("value");
           }
         });
       })
-      console.log(course)
-      courses.push(course)
       console.log(courses)
     });
 
