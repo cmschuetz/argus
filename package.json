@@ -2,6 +2,7 @@
   "name": "shrapnel",
   "description": "Automated Course Registration",
   "dependencies":{
+    "async":"latest",
     "zombie": "latest",
     "assert": "latest",
     "cheerio": "latest"
