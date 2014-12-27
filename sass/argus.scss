@@ -1,1 +1,13 @@
-@import "compass":
+@import "compass";
+
+$flatOrange:#f39c12;
+
+body {
+  background: {
+    color: $flatOrange;
+    // image: url("../img/chief.png");
+    repeat: no-repeat;
+    position: top right;
+    size: 65%;
+  }
+}

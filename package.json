@@ -1,10 +1,22 @@
 {
-  "name": "shrapnel",
+  "name": "Argus",
   "description": "Automated Course Registration",
+  "scripts": {
+    "start": "nodewebkit"
+  },
+  "main": "index.html",
+  "window": {
+    "title": "Argus",
+    "toolbar": true,
+    "width": 1024,
+    "height": 650,
+    "resizable": false
+  },
   "dependencies":{
     "async":"latest",
     "zombie": "latest",
     "assert": "latest",
-    "cheerio": "latest"
+    "cheerio": "latest",
+    "nodewebkit": "latest"
   }
 }
