@@ -2,16 +2,31 @@
 
 $flatOrange:#f39c12;
 $flatBlue:#59abe3;
+$darkBlue:#2c3e50;
+$greenSea:#16a085;
 
 body {
-  background-color: $flatBlue;
+  font-family: 'Roboto', sans-serif;
+  background-color: $greenSea;
 }
 
 .title {
-  text-align: center;
-  padding: 66px;
+  max-width: 750px;
+  margin: 0 auto;
+  color: $darkBlue;
+
+  h1 {
+    font-size: 66px;
+    padding-top: 85px;
+    margin: 0;
+  }
+
+  h2 {
+    margin: 0;
+  }
 }
 
 .login {
-  text-align: center;
+  width: 750px;
+  margin: 0 auto;
 }

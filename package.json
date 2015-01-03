@@ -7,9 +7,9 @@
   "main": "index.html",
   "window": {
     "title": "Argus",
-    "toolbar": true,
-    "width": 1024,
-    "height": 650,
+    "toolbar": false,
+    "width": 800,
+    "height": 400,
     "resizable": false
   },
   "dependencies":{

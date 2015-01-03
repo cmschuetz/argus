@@ -1,15 +1,28 @@
-/* line 6, ../sass/argus.scss */
+/* line 8, ../sass/argus.scss */
 body {
-  background-color: #59abe3;
+  font-family: 'Roboto', sans-serif;
+  background-color: #16a085;
 }
 
-/* line 10, ../sass/argus.scss */
+/* line 13, ../sass/argus.scss */
 .title {
-  text-align: center;
-  padding: 66px;
+  max-width: 750px;
+  margin: 0 auto;
+  color: #2c3e50;
+}
+/* line 18, ../sass/argus.scss */
+.title h1 {
+  font-size: 66px;
+  padding-top: 85px;
+  margin: 0;
+}
+/* line 24, ../sass/argus.scss */
+.title h2 {
+  margin: 0;
 }
 
-/* line 15, ../sass/argus.scss */
+/* line 29, ../sass/argus.scss */
 .login {
-  text-align: center;
+  width: 750px;
+  margin: 0 auto;
 }
