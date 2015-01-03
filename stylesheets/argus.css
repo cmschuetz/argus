@@ -1,7 +1,15 @@
-/* line 5, ../sass/argus.scss */
+/* line 6, ../sass/argus.scss */
 body {
-  background-color: #f39c12;
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: 65%;
+  background-color: #59abe3;
+}
+
+/* line 10, ../sass/argus.scss */
+.title {
+  text-align: center;
+  padding: 66px;
+}
+
+/* line 15, ../sass/argus.scss */
+.login {
+  text-align: center;
 }
