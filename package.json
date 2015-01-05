@@ -17,6 +17,7 @@
     "zombie": "latest",
     "assert": "latest",
     "cheerio": "latest",
-    "nodewebkit": "latest"
+    "nodewebkit": "latest",
+    "react": "latest"
   }
 }
