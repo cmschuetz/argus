@@ -2,7 +2,8 @@
   "name": "Argus",
   "description": "Automated Course Registration",
   "scripts": {
-    "start": "nodewebkit"
+    "start": "nodewebkit",
+    "build": "browserify -t reactify src/app.js > bundle.js"
   },
   "main": "index.html",
   "window": {
@@ -18,6 +19,7 @@
     "assert": "latest",
     "cheerio": "latest",
     "nodewebkit": "latest",
-    "react": "latest"
+    "react": "latest",
+    "react-router": "latest"
   }
 }

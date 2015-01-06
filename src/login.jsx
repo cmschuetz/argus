@@ -1,4 +1,5 @@
 var React = require('react')
+var Link = require('react-router').Link
 
 module.exports = React.createClass({
   render:function(){
@@ -14,7 +15,9 @@ module.exports = React.createClass({
             <fieldset>
               <input id="enterprise" type="text" placeholder="EnterpriseID" required></input>&nbsp;
               <input id="password" type="password" placeholder="Password"></input>&nbsp;
-              <button type="submit" className="pure-button submit">Login</button>
+              <Link to="loading">
+                <button type="submit" className="pure-button submit">Login</button>
+              </Link>
             </fieldset>
           </form>
         </div>
