@@ -2,3 +2,4 @@ config.json
 node_modules/
 .sass-cache
 .module-cache
+npm-debug.log

@@ -14,12 +14,11 @@
     "resizable": false
   },
   "dependencies":{
-    "async":"latest",
-    "zombie": "latest",
-    "assert": "latest",
-    "cheerio": "latest",
-    "nodewebkit": "latest",
-    "react": "latest",
-    "react-router": "latest"
+    "async":"*",
+    "zombie": "*",
+    "cheerio": "*",
+    "nodewebkit": "*",
+    "react": "*",
+    "react-router": "*"
   }
 }

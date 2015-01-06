@@ -22009,8 +22009,19 @@ Router.run(routes, function (Handler) {
 },{"./routes.jsx":"/home/christian/Projects/argus/src/routes.jsx","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/login.jsx":[function(require,module,exports){
 var React = require('react')
 var Link = require('react-router').Link
+var Navigation = require('react-router').Navigation;
 
 module.exports = React.createClass({displayName: "exports",
+
+  mixins: [Navigation],
+
+  handleSubmit: function(){
+    this.transitionTo('loading');
+    var entid = this.refs.entid.getDOMNode().value.trim();
+    var pass = this.refs.pass.getDOMNode().value.trim();
+
+  },
+
   render:function(){
     return (
       React.createElement("div", null, 
@@ -22020,13 +22031,11 @@ module.exports = React.createClass({displayName: "exports",
         ), 
 
         React.createElement("div", {className: "login"}, 
-          React.createElement("form", {className: "pure-form"}, 
+          React.createElement("form", {className: "pure-form", onSubmit: this.handleSubmit}, 
             React.createElement("fieldset", null, 
-              React.createElement("input", {id: "enterprise", type: "text", placeholder: "EnterpriseID", required: true}), " ", 
-              React.createElement("input", {id: "password", type: "password", placeholder: "Password"}), " ", 
-              React.createElement(Link, {to: "loading"}, 
-                React.createElement("button", {type: "submit", className: "pure-button submit"}, "Login")
-              )
+              React.createElement("input", {id: "enterprise", type: "text", placeholder: "EnterpriseID", ref: "entid", required: true}), " ", 
+              React.createElement("input", {id: "password", type: "password", placeholder: "Password", ref: "pass", required: true}), " ", 
+              React.createElement("button", {type: "submit", className: "pure-button submit"}, "Login")
             )
           )
         )
