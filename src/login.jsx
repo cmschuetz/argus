@@ -1,5 +1,4 @@
 var React = require('react')
-// var Link = require('react-router').Link
 var Navigation = require('react-router').Navigation;
 var async = require('async')
 var Courses = require('./courses.jsx')
@@ -9,7 +8,8 @@ module.exports = React.createClass({
 
   mixins: [Navigation],
 
-  handleSubmit: function(){
+  handleSubmit: function(e){
+    e.preventDefault();
     var entid = this.refs.entid.getDOMNode().value.trim();
     var pass = this.refs.pass.getDOMNode().value.trim();
     this.transitionTo('loading');

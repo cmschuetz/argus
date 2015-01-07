@@ -39,7 +39,7 @@ module.exports = {
       callback(courses)
     });
   },
-  
+
   'spam': function(entid,pass,callback){
     callback('oooo my dick')
   }

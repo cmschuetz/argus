@@ -23025,22 +23025,18 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":"/home/christian/Projects/argus/node_modules/react/lib/React.js"}],"/home/christian/Projects/argus/src/animations.jsx":[function(require,module,exports){
 var React = require('react')
-var Link = require('react-router').Link
 
 module.exports = {
 
   'square': React.createClass({
     render:function(){
       return (
-        React.createElement("div", null, 
-          React.createElement("div", {className: "spinner"}, 
-            React.createElement("div", {className: "rect1"}), " ", 
-            React.createElement("div", {className: "rect2"}), " ", 
-            React.createElement("div", {className: "rect3"}), " ", 
-            React.createElement("div", {className: "rect4"}), " ", 
-            React.createElement("div", {className: "rect5"})
-          ), 
-          React.createElement(Link, {to: "courses"}, "Courses")
+        React.createElement("div", {className: "spinner"}, 
+          React.createElement("div", {className: "rect1"}), " ", 
+          React.createElement("div", {className: "rect2"}), " ", 
+          React.createElement("div", {className: "rect3"}), " ", 
+          React.createElement("div", {className: "rect4"}), " ", 
+          React.createElement("div", {className: "rect5"})
         )
       )
     }
@@ -23060,7 +23056,7 @@ module.exports = {
 
 };
 
-},{"react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/courses.jsx":[function(require,module,exports){
+},{"react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/courses.jsx":[function(require,module,exports){
 var React = require('react')
 
 module.exports = React.createClass({displayName: "exports",
@@ -23130,16 +23126,15 @@ module.exports = React.createClass({displayName: "exports",
 
 },{"react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/index.js":[function(require,module,exports){
 var React = require('react');
-var router = require('./router.jsx');
-var Login = require('./login.jsx')
+var Router = require('react-router')
+var routes = require('./routes.jsx')
 
-router.run(function(Handler) {
+Router.run(routes,function(Handler) {
   React.render(React.createElement(Handler, null),document.body);
 })
 
-},{"./login.jsx":"/home/christian/Projects/argus/src/login.jsx","./router.jsx":"/home/christian/Projects/argus/src/router.jsx","react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/login.jsx":[function(require,module,exports){
+},{"./routes.jsx":"/home/christian/Projects/argus/src/routes.jsx","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/login.jsx":[function(require,module,exports){
 var React = require('react')
-// var Link = require('react-router').Link
 var Navigation = require('react-router').Navigation;
 var async = require('async')
 var Courses = require('./courses.jsx')
@@ -23149,7 +23144,8 @@ module.exports = React.createClass({displayName: "exports",
 
   mixins: [Navigation],
 
-  handleSubmit: function(){
+  handleSubmit: function(e){
+    e.preventDefault();
     var entid = this.refs.entid.getDOMNode().value.trim();
     var pass = this.refs.pass.getDOMNode().value.trim();
     this.transitionTo('loading');
@@ -23212,6 +23208,7 @@ var App = React.createClass({
 
 module.exports = (
   React.createElement(Route, {name: "app", path: "/", handler: App}, 
+    React.createElement(Route, {name: "login", handler: Login}), 
     React.createElement(Route, {name: "loading", handler: Animations.square}), 
     React.createElement(Route, {name: "courses", handler: Courses}), 
     React.createElement(DefaultRoute, {handler: Login})
