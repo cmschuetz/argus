@@ -13,12 +13,12 @@
     "height": 400,
     "resizable": false
   },
-  "dependencies":{
-    "async":"*",
-    "zombie": "*",
+  "dependencies": {
+    "async": "*",
     "cheerio": "*",
-    "nodewebkit": "*",
-    "react": "*",
-    "react-router": "*"
+    "nodewebkit": "0.10.5",
+    "react": "^0.12.2",
+    "react-router": "^0.11.6",
+    "zombie": "latest"
   }
 }

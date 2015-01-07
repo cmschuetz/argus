@@ -1,7 +1,7 @@
 var React = require('react');
-var Router = require('react-router');
-var routes = require('./routes.jsx');
+var router = require('./router.jsx');
+var Login = require('./login.jsx')
 
-Router.run(routes, function (Handler) {
+router.run(function(Handler) {
   React.render(<Handler/>,document.body);
-});
+})

@@ -8,6 +8,7 @@ var Courses = require('./courses.jsx')
 var Animations = require('./animations.jsx')
 
 var App = React.createClass({
+  displayName : 'Argus',
   render: function () {
     return (
       <RouteHandler/>

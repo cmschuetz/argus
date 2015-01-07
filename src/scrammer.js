@@ -1,14 +1,12 @@
 var async = require("async");
 var Browser = require("zombie");
-var cheerio = require("cheerio")
+var cheerio = require("cheerio");
 var courses = {}
-
-browser = new Browser()
+var browser = new Browser()
 
 module.exports = {
 
   'scrape': function(entid,pass,callback){
-
     browser.
     visit("https://eas.admin.uillinois.edu/eas/servlet/EasLogin?redirect=https://webprod.admin.uillinois.edu/ssa/servlet/SelfServiceLogin?appName=edu.uillinois.aits.SelfServiceLogin&dad=BANPROD1").
     then(function(){return browser.fill("#ENT_ID", entid).fill("#PASSWORD", pass).pressButton("BTN_LOGIN")}).
@@ -38,11 +36,12 @@ module.exports = {
           });
         })
       });
-      callback(courses);
+      callback(courses)
     });
   },
-  'spam': function(crn){
-
+  
+  'spam': function(entid,pass,callback){
+    callback('oooo my dick')
   }
 
 }

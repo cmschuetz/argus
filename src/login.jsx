@@ -1,16 +1,24 @@
 var React = require('react')
-var Link = require('react-router').Link
+// var Link = require('react-router').Link
 var Navigation = require('react-router').Navigation;
-
+var async = require('async')
+var Courses = require('./courses.jsx')
+var Animations = require('./animations.jsx')
+var router = require('./router.jsx')
 module.exports = React.createClass({
 
   mixins: [Navigation],
 
   handleSubmit: function(){
-    this.transitionTo('loading');
     var entid = this.refs.entid.getDOMNode().value.trim();
     var pass = this.refs.pass.getDOMNode().value.trim();
+    this.transitionTo('loading');
+    scrammer.scrape(entid,pass,this.afterScrape);
+  },
 
+  afterScrape: function(courses){
+    console.log(courses)
+    this.transitionTo('courses')
   },
 
   render:function(){
