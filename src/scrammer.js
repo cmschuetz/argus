@@ -33,6 +33,12 @@ module.exports = {
             if($(this).attr("name") == "TITLE"){
               courses[crn].title = $(this).attr("value");
             }
+            if($(this).attr("name") == "SEC"){
+              courses[crn].section = $(this).attr("value");
+            }
+            if($(this).attr("name") == "CRED"){
+              courses[crn].hours = parseInt($(this).attr("value"));
+            }
           });
         })
       });

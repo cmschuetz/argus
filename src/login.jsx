@@ -1,5 +1,6 @@
 var React = require('react')
 var Navigation = require('react-router').Navigation;
+var courseList = require('./courseList')
 
 module.exports = React.createClass({
 
@@ -15,6 +16,7 @@ module.exports = React.createClass({
 
   afterScrape: function(courses){
     console.log(courses)
+    courseList.courses = courses
     this.transitionTo('courses')
   },
 

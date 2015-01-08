@@ -21929,14 +21929,44 @@ module.exports = {
 
 };
 
-},{"react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/courses.jsx":[function(require,module,exports){
+},{"react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/courseList.js":[function(require,module,exports){
+module.exports = {
+  courses: {}
+}
+
+},{}],"/home/christian/Projects/argus/src/courses.jsx":[function(require,module,exports){
 var React = require('react')
+var Router = require('react-router')
+var courseList = require('./courseList')
+
+
+var Entry = React.createClass({displayName: "Entry",
+  render: function() {
+    return (
+      React.createElement("tr", null, 
+        React.createElement("td", null, this.props.crn), 
+        React.createElement("td", null, this.props.course), 
+        React.createElement("td", null, this.props.title), 
+        React.createElement("td", null, this.props.section), 
+        React.createElement("td", null, this.props.hours)
+      )
+    )
+  }
+})
 
 module.exports = React.createClass({displayName: "exports",
+
   render:function(){
+
+    var rows = []
+    for (var key in courseList.courses){
+      var info = courseList.courses[key]
+      rows.push(React.createElement(Entry, {crn: key, course: info.subject + ' ' + info.course, title: info.title, section: info.section, hours: info.hours}))
+    }
+
     return (
       React.createElement("div", {className: "courses"}, 
-        React.createElement("table", {className: "pure-table pure-table-bordered"}, 
+        React.createElement("table", {className: "pure-table pure-table-horizontal"}, 
           React.createElement("thead", null, 
             React.createElement("tr", null, 
               React.createElement("th", null, "CRN"), 
@@ -21946,50 +21976,8 @@ module.exports = React.createClass({displayName: "exports",
               React.createElement("th", null, "Hours")
             )
           ), 
-
           React.createElement("tbody", null, 
-            React.createElement("tr", null, 
-              React.createElement("td", null, "32667"), 
-              React.createElement("td", null, "ECE 329"), 
-              React.createElement("td", null, "Smartphone computing and Appli"), 
-              React.createElement("td", null, "F"), 
-              React.createElement("td", null, "3")
-            ), 
-            React.createElement("tr", null, 
-              React.createElement("td", null, "32667"), 
-              React.createElement("td", null, "ECE 329"), 
-              React.createElement("td", null, "Smartphone computing and Appli"), 
-              React.createElement("td", null, "F"), 
-              React.createElement("td", null, "3")
-            ), 
-            React.createElement("tr", null, 
-              React.createElement("td", null, "32667"), 
-              React.createElement("td", null, "ECE 329"), 
-              React.createElement("td", null, "Smartphone computing and Appli"), 
-              React.createElement("td", null, "F"), 
-              React.createElement("td", null, "3")
-            ), 
-            React.createElement("tr", null, 
-              React.createElement("td", null, "32667"), 
-              React.createElement("td", null, "ECE 329"), 
-              React.createElement("td", null, "Smartphone computing and Appli"), 
-              React.createElement("td", null, "F"), 
-              React.createElement("td", null, "3")
-            ), 
-            React.createElement("tr", null, 
-              React.createElement("td", null, "32667"), 
-              React.createElement("td", null, "ECE 329"), 
-              React.createElement("td", null, "Smartphone computing and Appli"), 
-              React.createElement("td", null, "F"), 
-              React.createElement("td", null, "3")
-            ), 
-            React.createElement("tr", null, 
-              React.createElement("td", null, "32667"), 
-              React.createElement("td", null, "ECE 329"), 
-              React.createElement("td", null, "Smartphone computing and Appli"), 
-              React.createElement("td", null, "F"), 
-              React.createElement("td", null, "3")
-            )
+            rows
           )
         )
       )
@@ -21997,7 +21985,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/index.js":[function(require,module,exports){
+},{"./courseList":"/home/christian/Projects/argus/src/courseList.js","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/index.js":[function(require,module,exports){
 var React = require('react');
 var Router = require('react-router')
 var routes = require('./routes.jsx')
@@ -22009,6 +21997,7 @@ Router.run(routes,function(Handler) {
 },{"./routes.jsx":"/home/christian/Projects/argus/src/routes.jsx","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/login.jsx":[function(require,module,exports){
 var React = require('react')
 var Navigation = require('react-router').Navigation;
+var courseList = require('./courseList')
 
 module.exports = React.createClass({displayName: "exports",
 
@@ -22024,6 +22013,7 @@ module.exports = React.createClass({displayName: "exports",
 
   afterScrape: function(courses){
     console.log(courses)
+    courseList.courses = courses
     this.transitionTo('courses')
   },
 
@@ -22049,7 +22039,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/routes.jsx":[function(require,module,exports){
+},{"./courseList":"/home/christian/Projects/argus/src/courseList.js","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/routes.jsx":[function(require,module,exports){
 var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
