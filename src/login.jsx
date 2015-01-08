@@ -1,9 +1,6 @@
 var React = require('react')
 var Navigation = require('react-router').Navigation;
-var async = require('async')
-var Courses = require('./courses.jsx')
-var Animations = require('./animations.jsx')
-var router = require('./router.jsx')
+
 module.exports = React.createClass({
 
   mixins: [Navigation],
