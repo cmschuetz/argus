@@ -4,6 +4,7 @@ $flatOrange:#f39c12;
 $flatBlue:#59abe3;
 $darkBlue:#34495E;
 $greenSea:#049372;
+$logout:#C0392B;
 
 //PAGE DESIGN
 
@@ -45,6 +46,40 @@ body {
   width: 650px;
   padding-top: 20px;
   margin: 0 auto;
+
+  table, thead, tr, th, td {
+    border-collapse: collapse;
+    background-color: $greenSea;
+    border: $greenSea;
+    color: $darkBlue;
+  }
+
+}
+
+.register {
+  top: 355px;
+  left: 10px;
+  position: absolute;
+  button{
+    background-color: $flatBlue;
+    color: $darkBlue;
+  }
+}
+
+.registering {
+  position: absolute;
+  left: 355px;
+  top: 365px;
+}
+
+.logout {
+  top: 355px;
+  right: 10px;
+  position: absolute;
+  button {
+    background-color: $logout;
+    color: $darkBlue;
+  }
 }
 
 //SQUARE SPINNER
@@ -105,9 +140,7 @@ body {
 //Circle Spinner
 
 .spinner2 {
-  margin: 100px auto 0;
   width: 70px;
-  text-align: center;
 }
 
 .spinner2 > div {

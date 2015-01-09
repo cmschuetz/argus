@@ -1,7 +1,6 @@
 var React = require('react')
 var Router = require('react-router')
-var courseList = require('./courseList')
-
+var Circles = require('./animations.jsx').circle
 
 var Entry = React.createClass({
   render: function() {
@@ -19,31 +18,87 @@ var Entry = React.createClass({
 
 module.exports = React.createClass({
 
+  mixins: [Router.Navigation],
+
+  getInitialState: function() {
+    return {
+      registering: false,
+      buttonText: false
+    };
+  },
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+    if(this.state.registering){
+      scrammer.stopSpamming();
+    }
+    this.setState({
+      registering: !this.state.registering,
+      buttonText: !this.state.buttonText
+    });
+
+    toAdd = this.refs.toAdd.getDOMNode().value.trim().split(/[ ,]+/);
+    console.log(toAdd.length)
+    scrammer.spam(toAdd,this.doneSpam);
+  },
+
+  doneSpam: function(){
+    console.log('wooooow')
+    this.setState({
+      registering: false,
+      buttonText: false
+    })
+    this.transitionTo('courseList')
+  },
+
+  logout: function(e) {
+    e.preventDefault()
+    this.transitionTo('login')
+    scrammer.logout();
+  },
+
   render:function(){
 
     var rows = []
-    for (var key in courseList.courses){
-      var info = courseList.courses[key]
-      rows.push(<Entry crn={key} course={info.subject + ' ' + info.course} title={info.title} section={info.section} hours={info.hours} />)
+    var buttonText = this.state.buttonText ? 'Stop' : 'Register';
+    var registering = this.state.registering ? <Circles/> : null;
+    console.log(scrammer.courses)
+    for (var key in scrammer.courses){
+      var info = scrammer.courses[key]
+      rows.push(<Entry key={key} crn={key} course={info.subject + ' ' + info.course} title={info.title} section={info.section} hours={info.hours} />)
     }
 
     return (
-      <div className="courses">
-        <table className="pure-table pure-table-horizontal">
-          <thead>
-            <tr>
-              <th>CRN</th>
-              <th>Course</th>
-              <th>Title</th>
-              <th>Section</th>
-              <th>Hours</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
+      <div>
+        <div className="courses">
+          <table className="pure-table">
+            <thead>
+              <tr>
+                <th>CRN</th>
+                <th>Course</th>
+                <th>Title</th>
+                <th>Section</th>
+                <th>Hours</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
+        <div className="register">
+          <form className="pure-form" onSubmit={this.handleSubmit}>
+            <input type="text" className="pure-input-rounded" ref="toAdd" required/>&nbsp;
+            <button type="submit" className="pure-button">{buttonText}</button>
+          </form>
+        </div>
+        <div className="registering">
+          {registering}
+        </div>
+        <div className="logout">
+          <button className="pure-button" onClick={this.logout}>Logout</button>
+        </div>
       </div>
     )
   }
-});
+})

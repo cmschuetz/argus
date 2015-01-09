@@ -21929,16 +21929,10 @@ module.exports = {
 
 };
 
-},{"react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/courseList.js":[function(require,module,exports){
-module.exports = {
-  courses: {}
-}
-
-},{}],"/home/christian/Projects/argus/src/courses.jsx":[function(require,module,exports){
+},{"react":"/home/christian/Projects/argus/node_modules/react/react.js"}],"/home/christian/Projects/argus/src/courses.jsx":[function(require,module,exports){
 var React = require('react')
 var Router = require('react-router')
-var courseList = require('./courseList')
-
+var Circles = require('./animations.jsx').circle
 
 var Entry = React.createClass({displayName: "Entry",
   render: function() {
@@ -21956,36 +21950,92 @@ var Entry = React.createClass({displayName: "Entry",
 
 module.exports = React.createClass({displayName: "exports",
 
+  mixins: [Router.Navigation],
+
+  getInitialState: function() {
+    return {
+      registering: false,
+      buttonText: false
+    };
+  },
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+    if(this.state.registering){
+      scrammer.stopSpamming();
+    }
+    this.setState({
+      registering: !this.state.registering,
+      buttonText: !this.state.buttonText
+    });
+
+    toAdd = this.refs.toAdd.getDOMNode().value.trim().split(/[ ,]+/);
+    console.log(toAdd.length)
+    scrammer.spam(toAdd,this.doneSpam);
+  },
+
+  doneSpam: function(){
+    console.log('wooooow')
+    this.setState({
+      registering: false,
+      buttonText: false
+    })
+    this.transitionTo('courseList')
+  },
+
+  logout: function(e) {
+    e.preventDefault()
+    this.transitionTo('login')
+    scrammer.logout();
+  },
+
   render:function(){
 
     var rows = []
-    for (var key in courseList.courses){
-      var info = courseList.courses[key]
-      rows.push(React.createElement(Entry, {crn: key, course: info.subject + ' ' + info.course, title: info.title, section: info.section, hours: info.hours}))
+    var buttonText = this.state.buttonText ? 'Stop' : 'Register';
+    var registering = this.state.registering ? React.createElement(Circles, null) : null;
+    console.log(scrammer.courses)
+    for (var key in scrammer.courses){
+      var info = scrammer.courses[key]
+      rows.push(React.createElement(Entry, {key: key, crn: key, course: info.subject + ' ' + info.course, title: info.title, section: info.section, hours: info.hours}))
     }
 
     return (
-      React.createElement("div", {className: "courses"}, 
-        React.createElement("table", {className: "pure-table pure-table-horizontal"}, 
-          React.createElement("thead", null, 
-            React.createElement("tr", null, 
-              React.createElement("th", null, "CRN"), 
-              React.createElement("th", null, "Course"), 
-              React.createElement("th", null, "Title"), 
-              React.createElement("th", null, "Section"), 
-              React.createElement("th", null, "Hours")
+      React.createElement("div", null, 
+        React.createElement("div", {className: "courses"}, 
+          React.createElement("table", {className: "pure-table"}, 
+            React.createElement("thead", null, 
+              React.createElement("tr", null, 
+                React.createElement("th", null, "CRN"), 
+                React.createElement("th", null, "Course"), 
+                React.createElement("th", null, "Title"), 
+                React.createElement("th", null, "Section"), 
+                React.createElement("th", null, "Hours")
+              )
+            ), 
+            React.createElement("tbody", null, 
+              rows
             )
-          ), 
-          React.createElement("tbody", null, 
-            rows
           )
+        ), 
+        React.createElement("div", {className: "register"}, 
+          React.createElement("form", {className: "pure-form", onSubmit: this.handleSubmit}, 
+            React.createElement("input", {type: "text", className: "pure-input-rounded", ref: "toAdd", required: true}), " ", 
+            React.createElement("button", {type: "submit", className: "pure-button"}, buttonText)
+          )
+        ), 
+        React.createElement("div", {className: "registering"}, 
+          registering
+        ), 
+        React.createElement("div", {className: "logout"}, 
+          React.createElement("button", {className: "pure-button", onClick: this.logout}, "Logout")
         )
       )
     )
   }
-});
+})
 
-},{"./courseList":"/home/christian/Projects/argus/src/courseList.js","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/index.js":[function(require,module,exports){
+},{"./animations.jsx":"/home/christian/Projects/argus/src/animations.jsx","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/index.jsx":[function(require,module,exports){
 var React = require('react');
 var Router = require('react-router')
 var routes = require('./routes.jsx')
@@ -21997,7 +22047,6 @@ Router.run(routes,function(Handler) {
 },{"./routes.jsx":"/home/christian/Projects/argus/src/routes.jsx","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/login.jsx":[function(require,module,exports){
 var React = require('react')
 var Navigation = require('react-router').Navigation;
-var courseList = require('./courseList')
 
 module.exports = React.createClass({displayName: "exports",
 
@@ -22011,10 +22060,9 @@ module.exports = React.createClass({displayName: "exports",
     scrammer.scrape(entid,pass,this.afterScrape);
   },
 
-  afterScrape: function(courses){
-    console.log(courses)
-    courseList.courses = courses
-    this.transitionTo('courses')
+  afterScrape: function(){
+    console.log(scrammer.courses)
+    this.transitionTo('courseList')
   },
 
   render:function(){
@@ -22022,7 +22070,7 @@ module.exports = React.createClass({displayName: "exports",
       React.createElement("div", null, 
         React.createElement("div", {className: "title"}, 
           React.createElement("h1", null, "Argus"), 
-          React.createElement("h2", null, "Because course registration shouldn't be difficult")
+          React.createElement("h2", null, "Because course registration shouldn't be a hassle")
         ), 
 
         React.createElement("div", {className: "login"}, 
@@ -22039,14 +22087,14 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./courseList":"/home/christian/Projects/argus/src/courseList.js","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/routes.jsx":[function(require,module,exports){
+},{"react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/routes.jsx":[function(require,module,exports){
 var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 var DefaultRoute = Router.DefaultRoute;
 var Login = require('./login.jsx')
-var Courses = require('./courses.jsx')
+var CourseList = require('./courses.jsx')
 var Animations = require('./animations.jsx')
 
 var App = React.createClass({
@@ -22062,7 +22110,7 @@ module.exports = (
   React.createElement(Route, {name: "app", path: "/", handler: App}, 
     React.createElement(Route, {name: "login", handler: Login}), 
     React.createElement(Route, {name: "loading", handler: Animations.square}), 
-    React.createElement(Route, {name: "courses", handler: Courses}), 
+    React.createElement(Route, {name: "courseList", handler: CourseList}), 
     React.createElement(DefaultRoute, {handler: Login})
   )
 );
@@ -23720,4 +23768,4 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}]},{},["/home/christian/Projects/argus/src/index.js"]);
+},{}]},{},["/home/christian/Projects/argus/src/index.jsx"]);

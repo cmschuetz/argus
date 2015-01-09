@@ -1,6 +1,5 @@
 var React = require('react')
 var Navigation = require('react-router').Navigation;
-var courseList = require('./courseList')
 
 module.exports = React.createClass({
 
@@ -14,10 +13,9 @@ module.exports = React.createClass({
     scrammer.scrape(entid,pass,this.afterScrape);
   },
 
-  afterScrape: function(courses){
-    console.log(courses)
-    courseList.courses = courses
-    this.transitionTo('courses')
+  afterScrape: function(){
+    console.log(scrammer.courses)
+    this.transitionTo('courseList')
   },
 
   render:function(){
@@ -25,7 +23,7 @@ module.exports = React.createClass({
       <div>
         <div className="title">
           <h1>Argus</h1>
-          <h2>Because course registration shouldn't be difficult</h2>
+          <h2>Because course registration shouldn't be a hassle</h2>
         </div>
 
         <div className="login">

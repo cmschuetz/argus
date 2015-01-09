@@ -4,7 +4,7 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 var DefaultRoute = Router.DefaultRoute;
 var Login = require('./login.jsx')
-var Courses = require('./courses.jsx')
+var CourseList = require('./courses.jsx')
 var Animations = require('./animations.jsx')
 
 var App = React.createClass({
@@ -20,7 +20,7 @@ module.exports = (
   <Route name="app" path="/" handler={App}>
     <Route name="login" handler={Login}/>
     <Route name="loading" handler={Animations.square}/>
-    <Route name="courses" handler={Courses}/>
+    <Route name="courseList" handler={CourseList}/>
     <DefaultRoute handler={Login}/>
   </Route>
 );

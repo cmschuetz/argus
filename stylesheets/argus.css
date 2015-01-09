@@ -1,46 +1,84 @@
-/* line 10, ../sass/argus.scss */
+/* line 11, ../sass/argus.scss */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #049372;
   color: #34495E;
 }
 
-/* line 16, ../sass/argus.scss */
+/* line 17, ../sass/argus.scss */
 .title {
   max-width: 750px;
   margin: 0 auto;
   color: #34495E;
 }
-/* line 21, ../sass/argus.scss */
+/* line 22, ../sass/argus.scss */
 .title h1 {
   font-size: 66px;
   padding-top: 85px;
   margin: 0;
 }
-/* line 27, ../sass/argus.scss */
+/* line 28, ../sass/argus.scss */
 .title h2 {
   margin: 0;
 }
 
-/* line 33, ../sass/argus.scss */
+/* line 34, ../sass/argus.scss */
 .login {
   width: 750px;
   margin: 0 auto;
 }
-/* line 37, ../sass/argus.scss */
+/* line 38, ../sass/argus.scss */
 .login .submit {
   color: #34495E;
   background-color: #59abe3;
 }
 
-/* line 44, ../sass/argus.scss */
+/* line 45, ../sass/argus.scss */
 .courses {
   width: 650px;
   padding-top: 20px;
   margin: 0 auto;
 }
+/* line 50, ../sass/argus.scss */
+.courses table, .courses thead, .courses tr, .courses th, .courses td {
+  border-collapse: collapse;
+  background-color: #049372;
+  border: #049372;
+  color: #34495E;
+}
 
-/* line 52, ../sass/argus.scss */
+/* line 59, ../sass/argus.scss */
+.register {
+  top: 355px;
+  left: 10px;
+  position: absolute;
+}
+/* line 63, ../sass/argus.scss */
+.register button {
+  background-color: #59abe3;
+  color: #34495E;
+}
+
+/* line 69, ../sass/argus.scss */
+.registering {
+  position: absolute;
+  left: 355px;
+  top: 365px;
+}
+
+/* line 75, ../sass/argus.scss */
+.logout {
+  top: 355px;
+  right: 10px;
+  position: absolute;
+}
+/* line 79, ../sass/argus.scss */
+.logout button {
+  background-color: #C0392B;
+  color: #34495E;
+}
+
+/* line 87, ../sass/argus.scss */
 .spinner {
   margin: 100px auto;
   width: 50px;
@@ -49,7 +87,7 @@ body {
   font-size: 10px;
 }
 
-/* line 60, ../sass/argus.scss */
+/* line 95, ../sass/argus.scss */
 .spinner > div {
   background-color: #34495E;
   height: 100%;
@@ -59,25 +97,25 @@ body {
   animation: stretchdelay 1.2s infinite ease-in-out;
 }
 
-/* line 70, ../sass/argus.scss */
+/* line 105, ../sass/argus.scss */
 .spinner .rect2 {
   -webkit-animation-delay: -1.1s;
   animation-delay: -1.1s;
 }
 
-/* line 75, ../sass/argus.scss */
+/* line 110, ../sass/argus.scss */
 .spinner .rect3 {
   -webkit-animation-delay: -1.0s;
   animation-delay: -1.0s;
 }
 
-/* line 80, ../sass/argus.scss */
+/* line 115, ../sass/argus.scss */
 .spinner .rect4 {
   -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
 
-/* line 85, ../sass/argus.scss */
+/* line 120, ../sass/argus.scss */
 .spinner .rect5 {
   -webkit-animation-delay: -0.8s;
   animation-delay: -0.8s;
@@ -101,14 +139,12 @@ body {
     -webkit-transform: scaleY(1);
   }
 }
-/* line 107, ../sass/argus.scss */
+/* line 142, ../sass/argus.scss */
 .spinner2 {
-  margin: 100px auto 0;
   width: 70px;
-  text-align: center;
 }
 
-/* line 113, ../sass/argus.scss */
+/* line 146, ../sass/argus.scss */
 .spinner2 > div {
   width: 18px;
   height: 18px;
@@ -122,13 +158,13 @@ body {
   animation-fill-mode: both;
 }
 
-/* line 127, ../sass/argus.scss */
+/* line 160, ../sass/argus.scss */
 .spinner2 .bounce1 {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
-/* line 132, ../sass/argus.scss */
+/* line 165, ../sass/argus.scss */
 .spinner2 .bounce2 {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
