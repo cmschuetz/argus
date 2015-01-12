@@ -1,16 +1,22 @@
 var React = require('react')
-var Navigation = require('react-router').Navigation;
+var Router = require('react-router');
 
 module.exports = React.createClass({
 
-  mixins: [Navigation],
+  mixins: [Router.Navigation,Router.State],
+
+  getInitialState: function(){
+    return {
+      badCred: false
+    }
+  },
 
   handleSubmit: function(e){
     e.preventDefault();
     var entid = this.refs.entid.getDOMNode().value.trim();
     var pass = this.refs.pass.getDOMNode().value.trim();
     this.transitionTo('loading');
-    scrammer.scrape(entid,pass,this.afterScrape);
+    scrammer.scrape(entid,pass,this.afterScrape,this.loginFail);
   },
 
   afterScrape: function(){
@@ -18,7 +24,19 @@ module.exports = React.createClass({
     this.transitionTo('courseList')
   },
 
+  loginFail: function(){
+    this.transitionTo('login',{
+      badCreds: true,
+      timeout: false
+    })
+  },
+
   render:function(){
+
+    //TODO: really bad solution.  Should change but struggling to pass props with react router.
+    var badCreds = this.getParams().badCreds == 'true' ? 'Incorrect EnterpriseID or Password' : null;
+    var timeout = this.getParams().timeout == 'true' ? 'Connection Timeout' : null;
+    console.log(this.getParams().timeout)
     return (
       <div>
         <div className="title">
@@ -34,6 +52,8 @@ module.exports = React.createClass({
               <button type="submit" className="pure-button submit">Login</button>
             </fieldset>
           </form>
+          {badCreds}
+          {timeout}
         </div>
       </div>
     )

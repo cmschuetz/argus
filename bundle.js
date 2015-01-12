@@ -21985,7 +21985,10 @@ module.exports = React.createClass({displayName: "exports",
 
   logout: function(e) {
     e.preventDefault()
-    this.transitionTo('login')
+    this.transitionTo('login',{
+      badCreds: false,
+      timeout: false
+    })
     scrammer.logout();
   },
 
@@ -22046,18 +22049,24 @@ Router.run(routes,function(Handler) {
 
 },{"./routes.jsx":"/home/christian/Projects/argus/src/routes.jsx","react":"/home/christian/Projects/argus/node_modules/react/react.js","react-router":"/home/christian/Projects/argus/node_modules/react-router/modules/index.js"}],"/home/christian/Projects/argus/src/login.jsx":[function(require,module,exports){
 var React = require('react')
-var Navigation = require('react-router').Navigation;
+var Router = require('react-router');
 
 module.exports = React.createClass({displayName: "exports",
 
-  mixins: [Navigation],
+  mixins: [Router.Navigation,Router.State],
+
+  getInitialState: function(){
+    return {
+      badCred: false
+    }
+  },
 
   handleSubmit: function(e){
     e.preventDefault();
     var entid = this.refs.entid.getDOMNode().value.trim();
     var pass = this.refs.pass.getDOMNode().value.trim();
     this.transitionTo('loading');
-    scrammer.scrape(entid,pass,this.afterScrape);
+    scrammer.scrape(entid,pass,this.afterScrape,this.loginFail);
   },
 
   afterScrape: function(){
@@ -22065,7 +22074,19 @@ module.exports = React.createClass({displayName: "exports",
     this.transitionTo('courseList')
   },
 
+  loginFail: function(){
+    this.transitionTo('login',{
+      badCreds: true,
+      timeout: false
+    })
+  },
+
   render:function(){
+
+    //TODO: really bad solution.  Should change but struggling to pass props with react router.
+    var badCreds = this.getParams().badCreds == 'true' ? 'Incorrect EnterpriseID or Password' : null;
+    var timeout = this.getParams().timeout == 'true' ? 'Connection Timeout' : null;
+    console.log(this.getParams().timeout)
     return (
       React.createElement("div", null, 
         React.createElement("div", {className: "title"}, 
@@ -22080,7 +22101,9 @@ module.exports = React.createClass({displayName: "exports",
               React.createElement("input", {id: "password", type: "password", placeholder: "Password", ref: "pass", required: true}), " ", 
               React.createElement("button", {type: "submit", className: "pure-button submit"}, "Login")
             )
-          )
+          ), 
+          badCreds, 
+          timeout
         )
       )
     )
@@ -22108,7 +22131,7 @@ var App = React.createClass({
 
 module.exports = (
   React.createElement(Route, {name: "app", path: "/", handler: App}, 
-    React.createElement(Route, {name: "login", handler: Login}), 
+    React.createElement(Route, {name: "login", path: "login/:badCreds/:timeout", handler: Login}), 
     React.createElement(Route, {name: "loading", handler: Animations.square}), 
     React.createElement(Route, {name: "courseList", handler: CourseList}), 
     React.createElement(DefaultRoute, {handler: Login})

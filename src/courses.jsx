@@ -53,7 +53,10 @@ module.exports = React.createClass({
 
   logout: function(e) {
     e.preventDefault()
-    this.transitionTo('login')
+    this.transitionTo('login',{
+      badCreds: false,
+      timeout: false
+    })
     scrammer.logout();
   },
 

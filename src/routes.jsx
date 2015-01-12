@@ -18,7 +18,7 @@ var App = React.createClass({
 
 module.exports = (
   <Route name="app" path="/" handler={App}>
-    <Route name="login" handler={Login}/>
+    <Route name="login" path="login/:badCreds/:timeout" handler={Login}/>
     <Route name="loading" handler={Animations.square}/>
     <Route name="courseList" handler={CourseList}/>
     <DefaultRoute handler={Login}/>
